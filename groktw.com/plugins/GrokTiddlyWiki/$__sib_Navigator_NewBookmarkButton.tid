@@ -1,0 +1,57 @@
+caption: Toggle bookmark
+created: 20210320195437123
+description: Add or remove the current tiddler to/from the //Bookmarks// sidebar tab
+list-after: $:/core/ui/Buttons/more-tiddler-actions
+modified: 20240727213225589
+tags: $:/tags/ViewToolbar
+title: $:/sib/Navigator/NewBookmarkButton
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\procedure common-button(actionWidget, iconClass, buttonAndTooltipText)
+  <$button
+    actions=<<actionWidget>>
+    class=<<tv-config-toolbar-class>>
+    selectedClass="tc-selected"
+    tooltip=<<buttonAndTooltipText>>
+  >
+    <% if [<tv-config-toolbar-icons>match[yes]] %>
+      <span class=<<iconClass>>>{{$:/core/images/star-filled}}</span>
+    <% endif %>
+    <% if [<tv-config-toolbar-text>match[yes]] %>
+      <span class="tc-btn-text"><$text text=<<buttonAndTooltipText>>/></span>
+    <% endif %>
+  </$button>
+\end common-button
+
+\procedure selected-state()
+  <$macrocall
+    $name="common-button"
+    actionWidget=<<unbookmark-tiddler>>
+    iconClass="gtw-yellow-me"
+    buttonAndTooltipText="Remove bookmark"
+  />
+\end selected-state
+
+\procedure unselected-state()
+  <$macrocall
+    $name="common-button"
+    actionWidget=<<bookmark-tiddler>>
+    iconClass=""
+    buttonAndTooltipText="Bookmark tiddler"
+  />
+\end unselected-state
+
+<% if [[$:/config/sobjornstad/GrokTiddlyWiki/Bookmarks]contains:text<currentTiddler>!is[blank]] %>
+  <<selected-state>>
+<% else %>
+  <<unselected-state>>
+<% endif %>
+
+<style>
+.gtw-yellow-me svg {
+  fill: yellow !important;
+  stroke: black !important;
+}
+</style>

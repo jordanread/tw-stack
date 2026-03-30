@@ -1,0 +1,11 @@
+created: 20210314124816942
+modified: 20240928195317583
+tags: 
+title: Sn:MacroVariableTextSubstitution
+type: text/vnd.tiddlywiki
+
+\define wikipediaLink() https://en.wikipedia.org/wiki/$(articleName)$
+
+<$let articleName="TiddlyWiki">
+  <<wikipediaLink>>
+</$let>

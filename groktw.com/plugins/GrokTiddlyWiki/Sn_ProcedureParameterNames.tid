@@ -1,0 +1,12 @@
+created: 20210116205418754
+modified: 20240929014004310
+tags: 
+title: Sn:ProcedureParameterNames
+type: text/vnd.tiddlywiki
+
+\procedure wikipediaLink(articleName, linkText)
+  <a href=`https://en.wikipedia.org/wiki/$(articleName)$`>
+  <<linkText>></a>
+\end
+
+<<wikipediaLink linkText:"Wikipedia on Aardvarks" articleName:Aardvark>>

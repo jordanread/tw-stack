@@ -1,0 +1,13 @@
+created: 20210207222708735
+modified: 20241016130804346
+tags: 
+title: Sn:AuthorizationBypass
+type: text/vnd.tiddlywiki
+
+\define checkAuthorization(password)
+<% if [[$password$]match{$:/config/SecretPasswordExample}] %>
+  The user is authorized.
+<% endif %>
+\end
+
+<<checkAuthorization "">>

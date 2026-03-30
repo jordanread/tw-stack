@@ -1,0 +1,18 @@
+created: 20210116210007489
+modified: 20240929014142165
+tags: 
+title: Sn:TranscludedProcedureCallWidget
+type: text/vnd.tiddlywiki
+
+\procedure wikipediaLink(articleName, linkText:"Wikipedia Link")
+  <a href=`https://en.wikipedia.org/wiki/$(articleName)$`>
+  <<linkText>></a>
+\end
+
+<$let linktext="An animal">
+
+* <$transclude $variable="wikipediaLink" linkText=<<linktext>> articleName="Aardvark" />
+* <$transclude $variable="wikipediaLink" linkText=<<linktext>> articleName="Bee" />
+* <$transclude $variable="wikipediaLink" linkText=<<linktext>> articleName="Cow" />
+
+</$let>

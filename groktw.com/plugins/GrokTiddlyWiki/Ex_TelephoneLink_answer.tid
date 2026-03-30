@@ -1,0 +1,34 @@
+created: 20210131040820380
+length: m
+modified: 20241016130646565
+origin: Macros
+tags: Answer
+title: Ex:TelephoneLink/answer
+type: text/vnd.tiddlywiki
+
+The key issue here is passing the value of `!!phone` into the macro. You might be tempted to use a parameter `phonenum`, like this:
+
+```html
+\define phonelink(phonenum) tel:$phonenum$
+<a href=<<phonelink {{!!phone}}>>>Call {{!!title}}</a>
+```
+
+...but unfortunately `<<phonelink {{!!phone}}>>` doesn't do what we want here -- TiddlyWiki does not parse other transclusions inside `<<variable transclusions>>`. (It's valid syntax, but it will just pass the literal text `{{!!phone}}` to the macro.)
+
+One option is to put the entire link within the macro, which allows you to use the `$transclude` widget to pass transcluded values as parameters:
+
+```html
+\define phonelink(phonenum) [ext[Call $name$|tel:$phonenum$]]
+<$transclude $variable="phonelink" name={{!!title}} phonenum={{!!phone}}/>
+```
+
+Another popular (and more flexible) option is to access the values needed as //variables//, rather than as parameters:
+
+```html
+\define phonelink() tel:$(phonenum)$
+<$let phonenum={{!!phone}}>
+  <a href=<<phonelink>>>Call {{!!title}}</a>
+</$let>
+```
+
+This problem is not limited to macros; it can come up occasionally with procedures as well. Setting a variable is often a useful workaround.

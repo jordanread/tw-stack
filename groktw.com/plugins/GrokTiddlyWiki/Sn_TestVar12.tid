@@ -1,0 +1,11 @@
+created: 20210101165835117
+modified: 20240923223200566
+tags: 
+title: Sn:TestVar12
+type: text/vnd.tiddlywiki
+
+<$let testVar1="XYZ">
+<$let testVar2="<<testVar1>>">
+  <<testVar2>>
+</$let>
+</$let>

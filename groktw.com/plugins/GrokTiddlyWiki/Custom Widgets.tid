@@ -1,0 +1,52 @@
+created: 20240901044700214
+description: Custom widgets are a special type of procedure that imitates the syntax of built-in widgets.
+modified: 20241017002859774
+parent: Macros, Wikification, and Widgets
+tags: Section Concept
+title: Custom Widgets
+type: text/vnd.tiddlywiki
+
+The built-in [[widgets|Widgets]] in TiddlyWiki are written in JavaScript. However, it's possible to define your own widgets, called ''custom widgets'', using wikitext. What these widgets can do is, of course, more limited than what widgets that run arbitrary JavaScript can do, but they can accomplish a wide variety of useful tasks nevertheless.
+
+Since they are just a way of wrapping up wikitext, there is little difference in principle between a custom widget and a transclusion of a template or a procedure. (In fact, a custom widget internally //is// a procedure, just one called using a different syntax.) In most cases, you can choose any of these features to reuse the same wikitext in multiple places. However, sometimes one syntax is more elegant than another.
+
+Custom widgets are defined using the same pragma syntax as [[Procedures]], [[Functions]], and [[Macros]], except that:
+
+* The word `widget` is used.
+* Like all widgets, your custom widget must have a name beginning with `$`.
+* The name of your custom widget must contain a dot (`.`). Unlike for [[function|Functions]] names, this is not an optional naming convention that allows shorter syntax, it is outright required. (There is one exception to this rule, which we'll discuss in the next chapter, in [[Overriding Built-In Widgets]].)
+
+Here's a very simple example:
+
+{{Sn:BoldItalicsWidget||MagicSnippet}}
+
+By default, custom widgets, like procedures and functions, are scoped to the tiddler in which they appear, and they can be (and most often are) made global in the same way as procedures, functions, and macros, by tagging their tiddler with `$:/tags/Global`.
+
+
+!! Using the widget body
+
+Typically, the main reason we want to use a custom widget rather than a procedure or a transclusion is to take advantage of a widget's ability to include large blocks of arbitrary wikitext, HTML, and widgets in its body, ''without requiring quoting''. The widget's body automatically fills a [[slot|Parameterizing Field Transclusions]] called `ts-raw`, so we use the `$slot` widget to retrieve it:
+
+{{Sn:BoldItalicsWidgetBody||MagicSnippet}}
+
+(For more on the `$slot` widget, review [[Parameterizing Field Transclusions]].)
+
+As with built-in widgets, if we want the content of a widget to be in [[block mode|Block Mode and Inline Mode]], we need to put blank lines inside the opening and closing tags of our custom widget:
+
+```html
+<$format.bold-italics>
+
+Test text rendered in block mode
+
+</$format.bold-italics>
+```
+
+
+!! Exercises
+
+{{Ex:ContactQuote||ExerciseTemplate}}
+
+
+!! Takeaways
+
+{{||TakeawaysTemplate}}

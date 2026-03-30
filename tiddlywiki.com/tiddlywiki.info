@@ -7,7 +7,10 @@
 		"tiddlywiki/internals",
 		"tiddlywiki/menubar",
 		"tiddlywiki/railroad",
-		"tiddlywiki/tour"
+		"tiddlywiki/tour",
+        "tiddlywiki/tiddlyweb",
+        "tiddlywiki/filesystem",
+        "tiddlywiki/highlight"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",

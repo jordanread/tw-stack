@@ -1,0 +1,19 @@
+created: 20210131040745037
+length: m
+modified: 20240923221740808
+origin: Macros
+tags: Exercise
+title: Ex:TelephoneLink
+type: text/vnd.tiddlywiki
+
+Suppose we want to create a link for a contact which, when clicked on a smartphone, calls the contact. This can be accomplished with a link to a URL like `tel:888-555-1234`. Create such a link and add it to the `ContactInformationTemplate`.
+
+Use text substitution in a macro to build the link -- do not use backticks or filters.
+
+//Tip:// If you want to use a `[[double square brackets]]` link rather than an `a` HTML element, you need to use `ext`, like this:
+
+```html
+[ext[tel:888-555-1234]]
+```
+
+That's because `tel:888-555-1234` by itself would be a valid name for a tiddler, too, so if TiddlyWiki isn't told it's an external link, it will assume it's an internal one. See the //External Links// heading [[here in the TiddlyWiki documentation |https://tiddlywiki.com/#Linking%20in%20WikiText]] for more information.

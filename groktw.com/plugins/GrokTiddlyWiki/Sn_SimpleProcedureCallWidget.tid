@@ -1,0 +1,12 @@
+created: 20210116205906718
+modified: 20240929014129823
+tags: 
+title: Sn:SimpleProcedureCallWidget
+type: text/vnd.tiddlywiki
+
+\procedure wikipediaLink(articleName, linkText)
+  <a href=`https://en.wikipedia.org/wiki/$(articleName)$`>
+  <<linkText>></a>
+\end
+
+<$transclude $variable="wikipediaLink" linkText="Wikipedia on Aardvarks" articleName=Aardvark />

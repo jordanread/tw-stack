@@ -1,0 +1,15 @@
+created: 20210207180126132
+modified: 20260306013240216
+tags: Answer
+title: Ex:CreatedNowButton/answer
+type: text/vnd.tiddlywiki
+
+```html
+<$button set="!!created" setTo=<<now [UTC]YYYY0MM0DD0hh0mm0ssXXX>>>
+  Created Now
+</$button>
+
+{{!!created}}
+```
+
+(The `{{!!created}}` is just there so you can check your work. You can also click the info button and look on the //Fields// tab.)

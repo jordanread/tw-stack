@@ -1,0 +1,106 @@
+created: 20240727195829171
+description: Procedures come in many forms.
+modified: 20241010130147339
+parent: Transclusion
+tags: Section
+title: The Finer Points of Procedures
+type: text/vnd.tiddlywiki
+
+We just skimmed the surface of procedures in the previous section, and you may be left with quite a few questions. Let's try to tackle some of the most important ones.
+
+{{$:/plugins/sobjornstad/TakeAway/ContextualHelp/DetailsWidget}}
+
+<$details summary="Procedures have scope">
+
+In the [[Variables]] section, we learned that after the closing `</$set>` or `</$let>` tag, a variable goes out of scope and is no longer available for use. So you might wonder, what's the scope of a procedure?
+
+The answer is, generally, the procedure is available until the end of the tiddler. It's also possible to define //global procedures// -- ones that you can use across any tiddler in your wiki. We'll discuss how to do that in [[Much More Than You Wanted to Know About Scopes]], next chapter.
+
+</$details><$details summary="Procedures can have zero parameters">
+
+It's possible, and even common, to have a procedure with //no// parameters, which is just a different way of writing a variable scoped to the entire tiddler. For instance, this is equivalent to the example of the corporate disclaimer previously discussed in the [[Variables]] section:
+
+{{Sn:ParameterlessProcedure||MagicSnippet}}
+
+
+</$details><$details summary="Procedures can have multiple parameters">
+
+Let's come back to our good old `wikipediaLink` procedure again. Let's say we want the user to be able to specify the text as well as the article we're linking to. Here's how we can do that:
+
+{{Sn:MultipleParameterProcedure||MagicSnippet}}
+
+Note that parameters are separated by a space in the procedure call but by a comma in the procedure definition. No, this doesn't really make any sense, but a lot of programming languages do it this way too.
+
+Also notice the use of "double quotation marks" when a parameter contains spaces.
+
+
+</$details><$details summary="Procedures can be called with parameters containing double quotes">
+
+A moment ago, we saw that you can include spaces in a parameter by surrounding it with double quotes. But what happens when the parameter itself contains double quotes? Uh-oh:
+
+{{Sn:QuoteWithinQuotesProcedure||MagicSnippet}}
+
+In this case, we can use //tripled// double quotes (colloquially called //triple quotes//) to mark the start and end of the parameter:
+
+{{Sn:TripleDoublesProcedure||MagicSnippet}}
+
+This trick works elsewhere in TiddlyWiki as well, if you ever find yourself needing to quote something that contains quotes.
+
+It's also possible to use 'single quotes' / apostrophes in place of double quotes, if you don't use any inside the parameter text. But since it's common to have apostrophes in text, while triple quotes are virtually never found inside text, triple quotes are a more generally useful tactic.
+
+</$details><$details summary="Procedures can be called with parameter names">
+
+If we don't like the order that the procedure parameters are specified in, or there are a lot of parameters and it's hard to remember what order they come in, we can list the parameters by name. If we do this, the order becomes unimportant.
+
+{{Sn:ProcedureParameterNames||MagicSnippet}}
+
+Sometimes this is called using ''named parameters'', in contrast to using //positional parameters//.
+
+A space may optionally be added after the colon `:`, but most people find it easier to read without a space.
+
+
+</$details><$details summary="Procedures can have optional parameters">
+
+When defining a procedure, we can specify a default value for a parameter by writing it after the parameter name and a colon. Then we only need to provide a value in the procedure call if we don't want to use the default.
+
+{{Sn:DefaultProcedureParameterValues||MagicSnippet}}
+
+Again, a space may optionally be added after the colon.
+
+</$details><$details summary="Procedures can be defined on a single line">
+
+You can place short procedures whose bodies need only one line on the same line as the `\procedure` pragma and omit the `\end`:
+
+{{Sn:SingleLineProcedure||MagicSnippet}}
+
+
+</$details><$details summary="Procedures can be called using a $transclude widget">
+
+In addition to the handy `<<double angle bracket>>` syntax, it's possible to call a procedure using the `$transclude` [[widget|Widgets]]. As we discussed in the widgets section, this is a common pattern in TiddlyWiki: anything you can do with convenient wikitext syntax can also be done with HTML tags or widgets, and those forms may offer some additional options for advanced use.
+
+Here's how we could create our aardvark link with a widget:
+
+{{Sn:SimpleProcedureCallWidget||MagicSnippet}}
+
+Notice the dollar sign in front of `$variable`, which is easily missed. (It's there so that your procedure can have parameters with any names, including `variable`, without conflicting.)
+
+</$details><$details summary="The $transclude widget can take variables as parameters">
+
+From the above, it was probably not immediately obvious why you would ever want to write out a procedure call the long way with a widget. Here's the main reason why: you can //transclude other things// into the parameters of the procedure. For instance, maybe we want to link to a few different Wikipedia pages, but use the same link name:
+
+{{Sn:TranscludedProcedureCallWidget||MagicSnippet}}
+
+</$details>
+
+
+!! Exercises
+
+{{Ex:TicketTrackingLink||ExerciseTemplate}}
+{{Ex:ReversedOptionalParameters||ExerciseTemplate}}
+{{Ex:QuotedProcedureCall||ExerciseTemplate}}
+{{Ex:UnclosedProcedureCall||ExerciseTemplate}}
+
+
+!! Takeaways
+
+{{||TakeawaysTemplate}}

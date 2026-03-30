@@ -1,0 +1,82 @@
+created: 20200603011212616
+description: Macros are an older version of procedures that handle their parameters differently.
+modified: 20241016130309100
+parent: Macros, Wikification, and Widgets
+tags: Section Concept
+title: Macros
+type: text/vnd.tiddlywiki
+
+''Macros'', like [[Variables]], [[Procedures]], and [[Functions]], are a mechanism for reusing wikitext in different places. And like procedures and functions, they're really a special type of variable. They're most closely related to procedures: they're used to specify text which is mostly constant but changes in a small part or two. Indeed, they behave exactly like procedures in almost all ways, with one very important exception: they handle their parameters completely differently.
+
+Once upon a time, macros were the //only// way to create a variable with some parts that changed -- procedures didn't exist at all. Nowadays, it is usually best to use procedures rather than macros. There are two reasons for this: first, the way macros handle their parameters tends to be much more difficult to understand than the way procedures do (this is why we've put off learning about macros until much later). Second, the way macros handle their parameters can cause subtle bugs when tiddler titles or fields contain certain characters, and it is difficult to impossible to defend against them. (We'll see one example of this in an exercise at the end of this section; see [[Macro Pitfalls|https://tiddlywiki.com/#Macro%20Pitfalls]] in the TiddlyWiki documentation for more.)
+
+Nevertheless, there are times when using a macro can make something that would otherwise be quite awkward extremely easy, and if you explore older wikis, plugins, or the TiddlyWiki core, you will have to understand macros to follow the wikitext there, so learning how they work is important no matter what.
+
+Macro definitions work just like procedure and function definitions; they use the pragma `\define`. For example, we can say:
+
+{{Sn:BrokenWikipediaLinkMacro||MagicSnippet}}
+
+But wait -- why is the link missing from the output?
+
+
+!! Macro parameter handling
+
+When you call a procedure, the values of its parameters are exposed as variables. But when you call a macro, the values of its parameters are not directly exposed as variables with that name. Instead you use one of two special syntaxes to get the values of its parameters:
+
+* `<<__parameter__>>` -- when you use this syntax, the parameter is treated ''as a variable'', like in a procedure. The difference is that you have to use this more verbose syntax. (Inside a filter expression, the syntax is `<__parameter__>`: the underscores stay doubled while the angle brackets get demoted to singles.)
+* `$parameter$` -- when you use this syntax, the parameter is ''incorporated into the body of the macro'' by //text substitution//. We'll talk more about what this means in a moment.
+
+While you'll see the `<<__parameter__>>` syntax frequently in older wikitext, nowadays if you're using a macro rather than a procedure, it's probably because you wanted the text substitution behavior and only macros support that, so you probably won't use this syntax yourself too often. Nevertheless, it's good form to choose it instead of `$parameter$` anytime that either would work fine, because you'll avoid exposing yourself to a number of gotchas possible only with text substitution.
+
+
+!! Text substitution
+
+Armed with the new syntax, we can fix our example to work as a macro:
+
+{{Sn:FixedWikipediaLinkMacro||MagicSnippet}}
+
+Take another look at that example. Notice something odd in the body of the macro? Right, we didn't use the substituted attribute value [[backtick syntax|Using Variables as Attributes]] for the `href` attribute to combine `articleName` with the rest of the URL. Instead, we just quoted it normally -- yet we got the correct result.
+
+That's because the `$bare dollar signs$` syntax performs ''text substitution''. This is the key difference between macros and procedures. In a procedure, all variable references are processed as normal wikitext, just like they would be outside a procedure. But in a macro, when you call the macro, TiddlyWiki momentarily ''stops processing wikitext'' and first substitutes the macro's parameters into the text of the macro. This is completely unaware of TiddlyWiki syntax in any way and operates before rendering wikitext -- you can think of it like automatically copying and pasting the value of the parameter over the `$placeholder$` in the macro. Only after text substitution is completed does the content of the macro get rendered as wikitext in its original context.
+
+To see how this works, let's try defining `wikipediaLink` by using a wikitext link instead of a widget. This will completely fail for a procedure, because putting variable/parameter references inside wikitext links is invalid syntax, but will work totally fine for a macro, because the replacement happens before we start caring about syntax:
+
+{{Sn:WikipediaLinkProcVsMacro||MagicSnippet}}
+
+You may occasionally see text substitution called //textual substitution// or just //substitution//; we will use the term //text substitution// throughout this book.
+
+
+!! Text substitution with variables
+
+Within a macro, you can also perform text substitution on a variable that is not a parameter of the macro using the `$(parenthesized dollar signs)$` syntax. You may notice this syntax is familiar -- it's the same syntax used within [[substituted attribute values|Using Variables as Attributes]] to combine variables with other text -- and it does exactly the same thing (performs text substitution using the value of the variable). But in a macro, you can do this anywhere, not just within backticks.
+
+You might be asking, why would we want to use a variable rather than a parameter to change the behavior of a macro? Generally, if we have the choice, we don't; it's clearer what information the macro is using when we use parameters, and it's not a good thing when macros do something surprising. (See the [[Principle of Least Astonishment|https://en.wikipedia.org/wiki/Principle_of_least_astonishment]].) However, there are some cases where it saves us a lot of trouble – the first exercise will be an example of that. (Hint, hint.)
+
+
+!! The `$macrocall` widget
+
+Calling a macro works just like calling a procedure -- you can do it with `<<angle brackets>>` or with the `$variable` attribute of the `$transclude` widget.
+
+In older versions of TiddlyWiki, before procedures existed, you called macros with the ''`$macrocall` widget'' rather than the `$transclude` widget. These two syntaxes are equivalent (in fact, you can even call procedures with the `$macrocall` widget if you want to):
+
+```html
+<$transclude $variable="mymacro" param="value"/>
+<$macrocall $name="mymacro" param="value"/>
+```
+
+It's recommended that you use the new `$transclude` syntax for both macros and procedures, but you'll see the `$macrocall` widget in a lot of old wikitext, so it's good to be aware of.
+
+
+!! Exercises
+
+{{Ex:TelephoneLink||ExerciseTemplate}}
+{{Ex:TelephoneLinkBrokenSolution||ExerciseTemplate}}
+{{Ex:FilteredTelephoneLink||ExerciseTemplate}}
+{{Ex:BypassSecurityWithTextSubstitution||ExerciseTemplate}}
+{{Ex:PreserveSecurityWithTextSubstitution||ExerciseTemplate}}
+{{Ex:RecastProceduresAsMacros||ExerciseTemplate}}
+
+
+!! Takeaways
+
+{{||TakeawaysTemplate}}

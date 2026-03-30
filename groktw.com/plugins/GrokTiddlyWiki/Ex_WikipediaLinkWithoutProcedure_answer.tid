@@ -1,0 +1,11 @@
+created: 20201122165740509
+modified: 20240929005315658
+tags: Answer
+title: Ex:WikipediaLinkWithoutProcedure/answer
+type: text/vnd.tiddlywiki
+
+```html
+<$let wikipedia="https://en.wikipedia.org/wiki/">
+    <a href={{{ [<wikipedia>addsuffix[Aardvark]] }}}>Aardvark</a>
+</$let>
+```

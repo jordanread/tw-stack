@@ -1,0 +1,13 @@
+created: 20200718012215079
+modified: 20241001021043179
+tags: Answer
+title: Ex:VeryOrdinaryDay/answer
+type: text/vnd.tiddlywiki
+
+The most obvious approach is to use a [[conditional expression|Conditional Expressions]]. In this example, we set the variable `holiday` so we don't have to write the same filter twice, but you could also use a [[function|Functions]], or simply run it twice (it won't be much slower, just uglier):
+
+{{Sn:OrdinaryDay||MagicSnippet}}
+
+However, a more concise approach is to use the `$list` widget with the `emptyMessage` parameter, which is rendered if the filter returns no results:
+
+{{Sn:OrdinaryDayList||MagicSnippet}}

@@ -1,0 +1,13 @@
+created: 20210207223511379
+length: m
+modified: 20240929002643934
+origin: Macros
+tags: Exercise
+title: Ex:BypassSecurityWithTextSubstitution
+type: text/vnd.tiddlywiki
+
+Suppose that the following macro is being used to validate whether the user is authorized to access something:
+
+{{Sn:AuthorizationBypass||MagicSnippet}}
+
+Because of the way text substitution works, it's possible to bypass this authentication check without knowing the password (or looking in that tiddler). Figure out what you can fill in between the quotation marks in the macro call to bypass the password check, and check your answer by editing the live example above.

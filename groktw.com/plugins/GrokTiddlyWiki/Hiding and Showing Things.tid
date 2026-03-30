@@ -1,0 +1,101 @@
+created: 20210120034946005
+description: There are many ways to conditionally hide and show wikitext or set values; here's a broad summary.
+modified: 20241013004618524
+parent: Tips and Tricks
+showtest: 
+tags: Section
+title: Hiding and Showing Things
+type: text/vnd.tiddlywiki
+
+A very common need when developing things in wikitext is to ''show content only in certain circumstances''. The most obvious way to do this is with [[Conditional Expressions]]. But there are other options too, which may sometimes be more concise or convenient.
+
+!! The `$list` widget + a filter
+
+The `$list` widget can be used to show content either one or zero times. Conditional expressions are a relatively recent addition to TiddlyWiki -- before they existed, this was the primary mechanism for showing and hiding content depending on a filter, so you'll still see this frequently in the TiddlyWiki core and throughout various plugins and wikis. Let's review how this works, as it's a versatile but unintuitive technique.
+
+The contents of a `$list` widget are rendered once for each element in its associated filter. If we can ensure that the filter we use ''returns either one or zero output tiddlers'', we can use it to control showing or hiding some content.
+
+Let's suppose we'd like to display a transclusion of the template `ProjectTableOfContents` at the bottom of all project tiddlers, but only if the tiddler `$:/config/ShowProjectTocs` is set to `yes`. We might start with placing this on a tiddler tagged with `$:/tags/ViewTemplate`:
+
+```html
+<ul>
+<$list filter="[{$:/config/ShowProjectTocs}match[yes]]">
+    <$list filter="[all[current]tag[Project]]">
+        {{||ProjectTableOfContents}}
+    </$list>
+</$list>
+</ul>
+```
+
+There's a big problem with this snippet, though, which you'll notice if you create a `ProjectTableOfContents` template and try it in your wiki: the current tiddler is messed up by the outer `$list` widget, so the inner `$list` widget never finds anything (unless you happen to have a tiddler called `yes` tagged `Project`, in which case it will always display the template with the content appropriate to the `yes` tiddler!). Fortunately, there's an easy fix: add `variable=_` to the outer widget, so that it doesn't alter the `currentTiddler` variable. (`_` is a concise, easy-to-type variable name that is commonly understood to mean you don't care about and are not using the value, but TiddlyWiki doesn't care what you name it -- you could just as easily call the variable `trash` or `not-used` or `idontcare` if you prefer.)
+
+Here's an improved version:
+
+```html
+<ul>
+<$list filter="[{$:/config/ShowProjectTocs}match[yes]]" variable=_>
+  <$list filter="[all[current]tag[Project]]">
+    {{||ProjectTableOfContents}}
+  </$list>
+</$list>
+</ul>
+```
+
+If you're not comparing against a single tiddler, whether the current tiddler or a hard-coded one like `$:/config/ShowProjectTocs`, you won't be able to guarantee that there is only one match. In this case, you need to use the `first[]` operator to avoid having the contents of the widget unexpectedly repeat a bunch of times. For instance, you might want to know if any tiddlers in the wiki have been modified in the last N days (using the [[days operator|https://tiddlywiki.com/#days%20Operator]]). You might try something like this:
+
+{{Sn:NumDaysBack||MagicSnippet}}
+
+That didn't work so well! Try adding the `first[]` operator to the snippet to correct it.
+
+Also notice the use of the `emptyMessage` attribute of the `$list` widget above. This is analogous to `<% else %>` in a conditional expression -- it's displayed if there are zero results for the filter, and thereby saves us from having to create a second `$list` widget with the opposite condition. If you want to include a large amount of text in the empty condition, you can place it in a procedure and call the procedure as the value of this attribute (but at this point, switching to a conditional expression is probably more useful).
+
+!! The `$reveal` widget
+
+A method we haven't seen yet is the `$reveal` widget. With the advent of conditional expressions, this is rarely an attractive choice anymore, but let's quickly explore how it works, as you may also run across this widget in older wikitext. `$reveal` shows or hides content based on ''whether a specific field matches a specific value''. Here's the basic syntax:
+
+{{Sn:RevealWidgetTest||MagicSnippet}}
+
+In addition to `match`, as shown above, `type` can be set to `nomatch` to invert the match (`match` and `nomatch` widgets are often used in pairs to show one thing if something is true and another if it's not). There are also options to allow the widget to be used to compare numeric values (e.g., only show if a field value is greater than 5); check up the documentation for details.
+
+The `$reveal` widget has one major limitation worth noting: unlike the `$list` widget or a conditional expression, it ''creates a new `div` or `span`'' HTML element to wrap the revealed content in. This means you can end up with corrupted output if you use it in certain contexts where one of those elements doesn't belong, for example inside a table (notice the column header is the wrong width when expanded -- you might need to switch to the “Wikitext” tab to see this):
+
+{{Sn:BrokenRevealTable||MagicSnippet}}
+
+
+!! `$set` with a filter
+
+Sometimes you don't need to include entirely different content in a tiddler depending on a condition, you just need to ''set a variable to a different value''. Adding `filter` and `emptyValue` parameters to the `$set` widget allows you to set the value of a variable to one of two values, the normal `value` if the filter has more than 0 results, and `emptyValue` if it has 0:
+
+{{Sn:SetYourName||MagicSnippet}}
+
+
+!! Fallbacks
+
+A number of widgets will ''display their content if they find no matches'', eliminating the need to use a special expression or widget at all.
+
+!!! `$transclude` fallbacks
+
+You can use the content of a `$transclude` widget as a fallback if the field doesn't exist.
+
+{{Sn:TranscludeFallback||MagicSnippet}}
+
+If you are [[filling any slots|Parameterizing Field Transclusions]] within the body of the transclude widget, place the fallback inside a slot called `ts-missing` instead of directly within the body.
+
+!!! `$view` fallbacks
+
+The `$view` widget is much like the `$transclude` widget but displays the field contents in different formats, like dates or URL-encoded text, rather than wikifying them. It supports fallbacks exactly the same way as `$transclude` does:
+
+{{Sn:ViewFallback||MagicSnippet}}
+
+
+!! Exercises
+
+{{Ex:ViewTemplateExplicitHide||ExerciseTemplate}}
+{{Ex:ViewTemplateExplicitHideReveal||ExerciseTemplate}}
+{{Ex:BacklinksConditionalDisplay||ExerciseTemplate}}
+{{Ex:EmptyAtField||ExerciseTemplate}}
+{{Ex:ConditionalSetAt||ExerciseTemplate}}
+
+!! Takeaways
+
+{{||TakeawaysTemplate}}

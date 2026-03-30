@@ -1,0 +1,33 @@
+created: 20200718201623464
+modified: 20240926120613659
+tags: Answer
+title: Ex:LinkDivClasses/answer
+type: text/vnd.tiddlywiki
+
+```html
+\procedure excerptify(title)
+  <$wikify name="contents" text={{{ [<title>get[text]] }}}>
+    <$text text={{{ [<contents>split[]first[200]join[]] }}} />...
+  </$wikify>
+\end
+
+\procedure linkDisplay(title, subfilter, className)
+  <div class=<<className>>>
+    <<title>>:
+
+    <ul>
+      <$list filter="[all[current]subfilter<subfilter>]">
+        <li>
+          <$link />:
+          <div class="sib-links-excerpt"><$transclude $variable="excerptify" title={{!!title}}/></div>
+        </li>
+      </$list>
+    </ul>
+  </div>
+\end
+
+<div class="sib-links-container">
+  <<linkDisplay "Links" "[links[]]" "sib-links-forward">>
+  <<linkDisplay "Backlinks" "[backlinks[]]" "sib-links-backward">>
+</div>
+```

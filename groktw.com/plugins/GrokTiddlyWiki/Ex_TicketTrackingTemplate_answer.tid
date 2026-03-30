@@ -1,0 +1,21 @@
+created: 20200605153922962
+modified: 20240925232044467
+tags: Answer
+title: Ex:TicketTrackingTemplate/answer
+type: text/vnd.tiddlywiki
+
+In the `TicketNumberLink` tiddler:
+
+```html
+\procedure ticketLink(ticketId)
+<a href=`https://tix.example.com/ticket/$(ticketId)$`>Ticket <<ticketId>></a>
+\end
+
+<$transclude $variable="ticketLink" ticketId={{!!ticketnum}} />
+```
+
+In the `OnboardingProcess` tiddler:
+
+```html
+{{||TicketNumberLink}}
+```

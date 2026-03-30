@@ -1,0 +1,11 @@
+created: 20200717222830000
+modified: 20260306010945002
+tags: Answer
+title: Ex:MeetingsToday/answer
+type: text/vnd.tiddlywiki
+
+```html
+<$let today=<<now YYYY0MM0DD0hh>>>
+  <<tabs "[tag[Meeting]sameday:at<today>!is[draft]]" class:"tc-vertical">>
+</$let>
+```

@@ -1,0 +1,54 @@
+commit: 564bd1c8e6e6d25028cb46273643823bea830e3c
+created: 20241008030506682
+date: 20241019120000000
+modified: 20241019235515016
+tag: v2.0.0
+tags: 
+title: $:/plugins/sobjornstad/GrokTiddlyWiki/Changes/2.0.0
+type: text/vnd.tiddlywiki
+version: 2.0.0
+
+!!! Changes in approach
+
+* The largest change in TiddlyWiki recently has been the replacement of macros with procedures for general use. Version 2.0 moves [[Macros]], along with several more advanced topics in wikitext rendering, to a new chapter 6, and changes chapter 4 to focus on variables, procedures, and field transclusions of all kinds. Exercises, takeaways, and other content have been updated throughout the book to align with this new approach.
+* We now treat the idea of “transclusion” as fully including procedures, variables, functions, etc., as first-class elements, rather than tending to call only field transclusions transclusions and using different names for the other objects. Given how much more unified the two things have become (field transclusions can be parameterized, and you now use the `$transclude` widget for all of them), this seems like a better way to think about it.
+* The “Common Misunderstandings” chapter has been removed, since the items in it are all no longer easily misunderstood with the advent of new features.
+
+!!! New sections
+
+Each of these except for “Much More Than You Wanted to Know About Scopes” is aligned with a new feature since the last release of TiddlyWiki covered by a //Grok TiddlyWiki// edition:
+
+* [[Using Variables as Attributes]]
+* [[Procedures]]
+* [[Parameterizing Field Transclusions]]
+* [[Conditional Expressions]]
+* [[Functions]]
+* [[Much More Than You Wanted to Know About Scopes]]
+* [[Custom Widgets]]
+* [[Overriding Built-In Widgets]]
+
+The [[Macros]] section is also new – while there was a section called “Macros” before, the “Procedures” section is much more closely related to the old “Macros” section than the new “Macros” section is. The new “Macros” section is rewritten from scratch, assuming that you already grok procedures and explaining the differences between macros and procedures (mostly text substitution).
+
+
+!!! General
+
+* All of the internal code of //Grok TiddlyWiki// has been refactored to use the new features to the greatest extent possible, so if you poke around there you will be shown modern good practices.
+* The whole book has gotten a polish pass with minor revisions for improved clarity.
+* We now recommend starting with TiddlyHost as a saving and hosting solution, rather than TiddlyDesktop.
+* I've read through the entire book and corrected a number of things that had gotten slightly out of date over the years or could be explained better.
+
+
+!!! Fixes
+
+* The “mentions of” display in the related tiddlers drop-down at the bottom of many sections was broken and displaying the same two tiddlers.
+* Normalize indentation in code examples to two spaces per level (no tabs) across the wiki.
+* Address a wide variety of miscellaneous items of feedback and errors spotted by readers over the past year or so.
+
+
+!!! Upgrading
+
+If you'd like, you can [[upgrade|Upgrade]] a current edition of //Grok TiddlyWiki// to 2.0 just like you can with any other edition. You should keep in mind, however, that when you have worked through or edited exercises and takeaways in older versions, you've made copies of their shadow tiddlers, so the upgraded version won't show any updates to those exercises and takeaways. This is a minor to nonexistent issue in most releases of GTW, but in a major release like this one where //many// of these have changed considerably, it may be more confusing or problematic than normal.
+
+Therefore, we recommend that if you don't have significant exercise or takeaway review history you'd like to keep, you start out working on //Grok TiddlyWiki// 2.0 by making a fresh copy. If you do have such history, upgrading may make more sense for you -- just be on the lookout as you proceed and delete any exercises or takeaways that look like they aren't up to date to grab the latest versions.
+
+(If there are any //sections or chapters// you've modified directly, you'll be asked to merge the changes and delete them during the upgrade process, so all of your actual text will be fully up to date after completing an upgrade. This is impractical for exercises or takeaways given that there are so many of them and it's normal to modify them.)

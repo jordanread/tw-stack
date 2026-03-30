@@ -1,0 +1,13 @@
+created: 20200718031215831
+modified: 20240926004517777
+tags: Answer
+title: Ex:ContactsOnlyOnContacts/answer
+type: text/vnd.tiddlywiki
+
+```html
+<% if [all[current]tag[Contact]] %>
+  {{||ContactInformationTemplate}}
+<% endif %>
+```
+
+As usual, there's more than one way to do this. In particular, there are other filters you could use, for example `[<currentTiddler>tag[Contact]]`.

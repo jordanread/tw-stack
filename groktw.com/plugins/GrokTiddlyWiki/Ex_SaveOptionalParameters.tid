@@ -1,0 +1,40 @@
+created: 20240901144810532
+length: m
+modified: 20250111151648090
+origin: Overriding Built-In Widgets
+tags: Exercise
+title: Ex:SaveOptionalParameters
+type: text/vnd.tiddlywiki
+
+The `$link` widget has many optional parameters besides `to` and `tooltip`: as of the current version, `aria-label`, `tabindex`, `draggable`, `tag`, `class`, `overrideClass`, and any number of CSS data attributes and properties. Right now, we are ignoring these, possibly causing undesired effects. For instance, the following link should be rendered like an external link, but fails to do so:
+
+```html
+<$link to="Tiddlers" class="tc-tiddlylink-external">
+  Tiddlers (fake external)
+</$link>
+```
+
+To prevent such lost parameters, we need to pass all the parameters we aren't explicitly changing through to the original `$link` widget. We can combine two features to achieve this: (1) the `$names` and `$values` parameters of `$genesis`, which let you set an arbitrary number of parameters by providing two filters that evaluate to a list of parameter names and a list of corresponding values, and (2) the `$params` parameter to a widget (or function or procedure), which provides a [[JSON-formatted|Data Tiddlers]] collection of all the parameters passed to the widget, even those that weren't specified in the parameters list.
+
+You'll need to know several new things to complete this task:
+
+(1) The `$parameters` widget, which is a more verbose way of specifying the parameters of something to be transcluded (including a widget), is needed to use the `$params` attribute -- we can't specify `$params` directly in the `(parameter list)` of the `\widget` pragma. The value of the `$params` attribute is the name of a variable into which the parameters are placed. Here's the syntax:
+
+```html
+\widget $link(to, tooltip)
+  <$parameters $params="params-var">
+    ...here <<params-var>> is JSON containing all the params, and <<to>> and <<tooltip>> contain the values of those specific parameters
+  </$parameters>
+\end
+```
+
+(2) To get the base lists of parameter names and values, use the following functions:
+
+```html
+\function .rest-names() [<params-var>jsonindexes[]]
+\function .rest-values() [.rest-names[]] :map[<params-var>jsonget<currentTiddler>]
+```
+
+(3) When you call the `$genesis` widget, parameters that you've listed explicitly take precedence over any in `$names` and `$values`. So although the old value for `tooltip` will be included in `$names` and `$values`, if you additionally give a new value for `tooltip` as a widget attribute, that one will win.
+
+(//Note//: Due to a bug, this behaved incorrectly in versions of TiddlyWiki prior to 5.3.6. If you're having trouble, make sure the wiki you're editing is on the latest version!)

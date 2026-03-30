@@ -1,0 +1,9 @@
+answer: That procedure definitions must come before all other text in the tiddler.
+created: 20201231010628288
+modified: 20240929162020362
+origin: Procedures
+qtype: rememberq
+question: If you write a procedure definition and the definition literally appears in the output (i.e., you see `\procedure something` in the rendered tiddler), what did you probably forget?
+tags: Takeaway
+title: Ta:20201231010627310
+type: text/vnd.tiddlywiki

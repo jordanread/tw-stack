@@ -1,0 +1,42 @@
+caption: Cloze deletion
+created: 20210817193451300
+modified: 20240615155930519
+tags: 
+title: $:/plugins/sobjornstad/TakeAway/CreateNewCloze
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\import [[$:/plugins/sobjornstad/TakeAway/AddTakeawayButton]]
+
+<table>
+<tr>
+  <th style="text-align: left;">Cloze</th>
+  <td class="gtw-question-input">
+    <$edit-text
+      tiddler="$:/temp/addq"
+      tag=input
+      default=""
+      field="question"
+      placeholder="e.g., In TiddlyWiki, everything is a {tiddler}."
+    />
+  </td>
+</tr>
+</table>
+
+<div>
+
+<% if [{$:/temp/addq!!question}regexp[.*{.*}.*]] %>
+
+  <% if [[$:/temp/addq]get[question]!is[blank]] %>
+
+    <<add-takeaway-button remembercz>>
+
+  <% endif %>
+
+<% else %>
+
+  //Specify one or more words or phrases to occlude/hide with {single curly braces}.//
+
+<% endif %>
+
+</div>

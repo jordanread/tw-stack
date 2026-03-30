@@ -1,0 +1,27 @@
+created: 20210123233814789
+modified: 20241009130356384
+tags: Fragment
+title: SavingProgress
+type: text/vnd.tiddlywiki
+
+If you're currently viewing this page on the web at https://groktiddlywiki.com, you should make your own copy now.
+
+
+!! Clone this wiki using TiddlyHost
+
+The easiest way to manage your own copy of //Grok TiddlyWiki// is using [[TiddlyHost|https://tiddlyhost.com]] (see [[Installing TiddlyWiki]] for details). To clone your own copy of GTW into your TiddlyHost account, click on <<gtw-tiddlyhost-clone-link "this clone link">> and log in if required. Then give your site a name at the top (this can be anything; something like `sorens-grok-tiddlywiki` would make sense), choose //Private// access, and click //Create//.
+
+You'll now be able to see your copy of //Grok TiddlyWiki// in your TiddlyHost account, next to the sample wiki you installed in [[Installing TiddlyWiki]]. In the future, whenever you go to work on learning TiddlyWiki, open the book from your TiddlyHost account rather than from https://groktiddlywiki.com.
+
+Be sure to save your changes when you close the book for a while; your browser will prompt you to do so when you close the tab if you forget.
+
+
+!! Download a copy directly
+
+If you prefer to use [[a saver other than TiddlyHost|Options for Saving and Hosting Your Wiki]], click the save icon at the end of this paragraph to download a copy of the wiki to your computer: {{$:/core/ui/Buttons/save-wiki}}
+
+Then configure the wiki with whatever saver you're using, as required.
+
+!! Copyright
+
+You are free to modify the copy you've saved for your personal use, and to share unmodified copies with others, but not to redistribute modified versions or earn money from redistribution. See the [[copyright notice|Copyright]] for details.

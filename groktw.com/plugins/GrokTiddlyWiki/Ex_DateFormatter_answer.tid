@@ -1,0 +1,50 @@
+created: 20210207180211360
+modified: 20241010131913941
+tags: Answer
+title: Ex:DateFormatter/answer
+type: text/vnd.tiddlywiki
+
+Here's my version. You presumably have something slightly different.
+
+```html
+\procedure show-date(fmt) <$view tiddler={{!!selectedtiddler}} field={{!!selectedfield}} format="date" template=<<fmt>>>(not a date)</$view>
+
+\procedure date-row(name, fmt)
+<tr>
+  <td><<name>></td>
+  <td><$transclude $variable="show-date" fmt=<<fmt>>/></td>
+</tr>
+\end
+
+Tiddler:
+<$select field="selectedtiddler" default="">
+    <option value="">(choose a tiddler)</option>
+    <$list filter="[!is[system]]">
+        <option value=<<currentTiddler>>><<currentTiddler>></option>
+    </$list>
+</$select>
+
+<!-- Don't show the field drop-down if no tiddler is selected, since it won't contain any options. -->
+<% if [all[current]get[selectedtiddler]!is[blank]] %>
+Field:
+<$select field="selectedfield" default="created">
+    <$list filter="[{!!selectedtiddler}fields[]]">
+        <option value=<<currentTiddler>>><<currentTiddler>></option>
+    </$list>
+</$select>
+<% endif %>
+
+<% if [all[current]has[selectedtiddler]has[selectedfield]] %>
+<table>
+    <tr>
+        <th>Format</th>
+        <th>Date</th>
+    </tr>
+    <$list filter="[prefix[$:/config/DateFormatter/Formats/]]" variable="currentFormat">
+        <$transclude $variable="date-row"
+            name={{{ [<currentFormat>removeprefix[$:/config/DateFormatter/Formats/]] }}} 
+            fmt={{{ [<currentFormat>get[text]] }}}/>
+    </$list>
+</table>
+<% endif %>
+```

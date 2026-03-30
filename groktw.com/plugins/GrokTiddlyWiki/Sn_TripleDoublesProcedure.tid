@@ -1,0 +1,12 @@
+created: 20210116204445198
+modified: 20240929014146884
+tags: 
+title: Sn:TripleDoublesProcedure
+type: text/vnd.tiddlywiki
+
+\procedure wikipediaLink(articleName, linkText)
+  <a href=`https://en.wikipedia.org/wiki/$(articleName)$`>
+  <<linkText>></a>
+\end
+
+<<wikipediaLink Aardvark """What is an "aardvark"?""">>

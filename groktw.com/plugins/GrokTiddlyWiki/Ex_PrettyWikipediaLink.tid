@@ -1,0 +1,10 @@
+complete: 
+created: 20200603203233591
+length: s
+modified: 20240616174408034
+origin: Procedures
+tags: Exercise
+title: Ex:PrettyWikipediaLink
+type: text/vnd.tiddlywiki
+
+Update the `wikipediaLink` procedure to output a link whose text is instead `Wikipedia: {Aardvark}` (where `{Aardvark}` is the parameter passed to the procedure).

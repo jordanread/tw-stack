@@ -1,0 +1,15 @@
+created: 20200715230537311
+modified: 20210410180943780
+tags: Answer
+title: Ex:JaneMeetingMultirun/answer
+type: text/vnd.tiddlywiki
+
+```
+[tag[OnboardingHr]] [tag[TopSecretHr]] +[contains:participants[JaneDoe]]
+```
+
+This works fine too, but requires more typing and is a bit harder to understand:
+
+```
+[tag[OnboardingHr]contains:participants[JaneDoe]] [tag[TopSecretHr]contains:participants[JaneDoe]]
+```

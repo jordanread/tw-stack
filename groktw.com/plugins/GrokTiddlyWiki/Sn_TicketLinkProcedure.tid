@@ -1,0 +1,11 @@
+created: 20210116210221048
+modified: 20240929014349222
+tags: 
+title: Sn:TicketLinkProcedure
+type: text/vnd.tiddlywiki
+
+\procedure ticketLink(ticketId)
+<a href=`https://tix.example.com/ticket/$(ticketId)$`>Ticket <<ticketId>></a>
+\end
+
+<<ticketLink 245188>>

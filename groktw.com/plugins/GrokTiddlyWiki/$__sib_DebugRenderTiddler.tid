@@ -1,0 +1,11 @@
+created: 20210103000849963
+modified: 20240727201939451
+tags: 
+title: $:/sib/DebugRenderTiddler
+type: text/vnd.tiddlywiki
+
+<% if [{$:/temp/FeedbackCollector}get[debug]match[yes]] %>
+<$list filter="[all[current]fields[]sort[title]]" variable="fieldName">
+  <<fieldName>>: {{{ [all[current]get<fieldName>] }}}<br>
+</$list>
+<% endif %>

@@ -1,0 +1,114 @@
+created: 20200716024459314
+description: Content other than wikitext can be embedded into a TiddlyWiki, or stored outside of it and referenced in a variety of ways.
+modified: 20241016125526700
+parent: More Organizational Tools
+tags: Section
+title: Images and Attachments
+type: text/vnd.tiddlywiki
+
+So far, we've written an awful lot of formatted text. What about including images or other files in the wiki?
+
+This is, perhaps unexpectedly, one of the more troublesome aspects of TiddlyWiki, which is why we've left it until now. Let's talk about how we do it and what concerns we'll have to think about.
+
+
+!! Importing files
+
+This part is slick. Want a file to be part of your TiddlyWiki? Just ''drag and drop it'' out of your computer's file manager onto the TiddlyWiki window. A banner will appear at the top of the screen that says “Drop here.” When you drop the file, a special tiddler called `$:/Import` will appear. Click ''Import'', and a new tiddler is created containing the content. `$:/Import` will show a link to the newly added tiddler.
+
+This works for text, images, PDFs, and even binary files (though this last option is usually a bad idea, as TiddlyWiki can lock up if you try to open the tiddler for a large binary file, and you won't be able to read it anyway). You can import multiple files at once by dragging multiple files; you'll have the chance to review and uncheck any that you don't want before you import.
+
+You can also ''copy content between TiddlyWikis'' this way. For instance, if you wanted a copy of the [[Classifying Tags]] section in your wiki, you could simply grab that link and drag and drop it right onto your wiki window (for this to consistently work, both the source and the destination wiki should be open in the same web browser, e.g., Chrome).
+
+If it's easier than dragging and dropping, you can also click the <<textual-button "import-button">> ''Import'' button on the ''Tools'' tab of the sidebar to select a file to import.
+
+Go ahead and import a file or two into your wiki, including at least one image so we can take a look at that below.
+
+
+!! Putting images in your tiddlers
+
+Once you have an image in your wiki, you probably want to know how to include it in a tiddler. Let's create a new tiddler called `ImageTest` for this purpose.
+
+The easiest way to include it is to simply [[transclude|Field Transclusions]] it. So if the image tiddler is called `image.png`, use `{{image.png}}`.
+
+For more control over the image, you can use a special link syntax, <nobr><code>[img&nbsp;[image.png]]</code></nobr> (notice the space before the second `[` -- this is not important yet, but is required when including attributes, as described in the next sentence). In between the `img` and the opening square bracket, you can include `width=200` and/or `height=200` attributes to size the image, replacing `200` with however many pixels you want to use for the image. Unlike most places in wikitext syntax, it's also possible to transclude a field or variable containing the size, e.g.:
+
+```html
+[img width={{MyFavoriteImageWidth}} [image.png]]
+```
+
+The [[widget|Widgets]] equivalent of this syntax is `$image` (see [[documentation|https://tiddlywiki.com/#ImageWidget]]).
+
+
+!! Putting PDFs in your tiddlers
+
+Another common type of file to embed in your wiki is a PDF. You can't set the size a PDF displays at, but you can transclude a PDF tiddler, like `{{mydocument.pdf}}`, and a mini-embedded PDF viewer will appear at that point in the tiddler. Be aware this can slow down the loading of the tiddler since your browser has to load the entire PDF before it can finish displaying the tiddler, so be careful not to put it somewhere that might get loaded or re-loaded frequently, like on your wiki's front page or in the sidebar.
+
+
+!! Directly adding images to your tiddlers
+
+Above we discussed how importing images works when you import the image first and then create a tiddler that displays it. But often you'll be editing a tiddler and only then realize you need to import an image. In this case, you can ''drag and drop the image directly into the editor'' or paste it from the clipboard. In either case, a small popup will appear (you may need to scroll down to see it in some cases) offering to import the image. When you accept, it will both import the image and insert `[img [image.png]]` into the tiddler you're editing, where //image.png// is the name of the imported image tiddler.
+
+Aside from this automatic insertion of appropriate wikitext markup, directly adding an image to a tiddler works exactly like importing it on its own and then referencing it from within a tiddler later.
+
+
+!! The problem with TiddlyWiki attachments
+
+Here's the essential problem with all this: in single-file TiddlyWikis, ''anything you attach to your wiki gets embedded in the file''. That's no big deal if you only add a few small images or documents to your wiki, but if you start adding tens or dozens of large images, that file will balloon in size. That's a big problem for at least two reasons:
+
+* If your wiki is stored on the web, e.g., at TiddlyHost, every time you open it, you have to download the entire file, which may take quite a while depending on the speed of your internet connection.
+* With [[many savers|Options for Saving and Hosting Your Wiki]], every time TiddlyWiki saves, it makes a new copy of the file for backup purposes. If your wiki is 100 MB, and you save your wiki just 20 times, you're now using 2 GB of space on your hard drive. You can reduce the number of backups saved by various means, but that only hides the problem for longer; eventually your wiki is still going to get really big.
+
+(For the curious, text is so much smaller than images that serious difficulties are unlikely. You would have to write over 16 million average-length words of English, or 32,000 densely filled pages, to reach 100 MB of text. If you write 3 pages every day, it will still take you 30 years to write that much.)
+
+
+!! Possible solutions
+
+{{$:/plugins/sobjornstad/TakeAway/ContextualHelp/DetailsWidget}}
+
+<$details summary="Using Node.js">
+
+If you're technical enough to know a little bit about running a web server, or just a lot about JavaScript or Node.js, you can ''use a folder wiki'' instead of a single-file wiki, which eliminates the file-size problem because the attachments are stored as separate files and don't have to be rewritten unless they're changed. If you don't have any particular reason to prefer single-file TiddlyWiki, this is likely your best option.
+
+Take a look at the [[Options for Saving and Hosting Your Wiki]] appendix for details.
+
+If you're editing the wiki over a network (i.e., not from the computer on which you're running the server), this method might still be slow if you have a lot of images, since all of the images will still be sent to your browser when you open the wiki. To avoid this, you can configure the server to [[lazy-load|https://tiddlywiki.com/#LazyLoading]] the images.
+
+</$details><$details summary="Linking to external content">
+
+One way to avoid the issue is to ''link to content stored elsewhere'' instead of putting it in your wiki at all. For instance, you can display an image stored on the web using the `img` syntax:
+
+```html
+[img [https://example.com/url/of/my/image.png]]
+```
+
+Similarly, you could link to a PDF instead of transcluding it.
+
+If you're keeping your wiki on your computer and using a compatible saver (this rules out TiddlyHost), you can also link to files ''on your computer'' by placing them in a folder next to your TiddlyWiki. Say that your wiki is on a Windows computer at `C:\Users\Soren\Documents\TiddlyWiki\tw.html`. You could create a folder called `C:\Users\Soren\Documents\TiddlyWiki\attachments`. Then, when you want to have a file available for linking from TiddlyWiki, put it in this folder and display an image or link to a PDF like this:
+
+```html
+[img [attachments/myimage.png]]
+[ext[See my PDF|attachments/mydocument.pdf]]
+```
+
+Notice the `ext`, and the lack of a space before the `[`. This stands for //external// and is required so TiddlyWiki can distinguish between a missing tiddler called `attachments/mydocument.pdf` and a file with that name. TiddlyWiki can safely assume that a link to something beginning with `https://` or `file://` is intended to be external, but with a path relative to the wiki like this one, it's not so clear. (In the case of `img`, you don't have to specify: TiddlyWiki uses a tiddler with the provided name if it exists, and if it doesn't it tries treating it as an external path on your computer's filesystem.)
+
+</$details><$details summary="_canonical_uri">
+
+Often, you might be fine storing the content external to your wiki, but you'd really like to be able to ''treat it as a normal tiddler'' -- for instance, so you can transclude a PDF into another tiddler, or filter your images by certain criteria. You can improve on the approach above using a special field called `_canonical_uri` on a tiddler. (Notice that this is spelled `uri`, not `url` -- the difference between a URI and a URL is technical and irrelevant for our purposes, but getting the field name wrong will have very relevant results!)
+
+Here's how it works. Start by creating the folder and files mentioned in that section. Then, in TiddlyWiki, create a new tiddler and give it the name and fields that you would like. Instead of filling in the `text` field, however, create a field called `_canonical_uri` and paste in the path, like `attachments/mydocument.pdf`. (You can also provide a URL to content on the web, if you like.) When you add the field, a notice will appear that you can't edit the content in TiddlyWiki because it's stored outside the wiki.
+
+It's important you get the ''MIME type'' right (that's the little box labeled //Type// right underneath the content). If you don't, your content won't show up when you save the tiddler. If TiddlyWiki doesn't fill something appropriate in, you can pick from the drop-down for image or text types, or type `application/pdf` for a PDF.
+
+When you save the tiddler, you should see the content appear. At this point, it will behave just like any other tiddler, except that you can't edit the content from within TW and it will stop working if the content is moved.
+
+</$details>
+
+!! Exercises
+
+{{Ex:ContactInformationPicture||ExerciseTemplate}}
+{{Ex:CanonicalUri||ExerciseTemplate}}
+
+!! Takeaways
+
+{{||TakeawaysTemplate}}

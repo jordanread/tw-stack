@@ -1,0 +1,9 @@
+answer: The variable transclusion evaluates to nothing (nothing at all is displayed where you place the transclusion).
+created: 20201231004934903
+modified: 20240929154647612
+origin: Variables
+qtype: rememberq
+question: What happens if you refer to a variable that does not exist with wikitext like `<<nonexistentVariable>>`?
+tags: Takeaway
+title: Ta:20201231004933477
+type: text/vnd.tiddlywiki

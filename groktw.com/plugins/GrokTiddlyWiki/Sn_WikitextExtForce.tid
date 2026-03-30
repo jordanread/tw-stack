@@ -1,0 +1,13 @@
+created: 20210131141859994
+modified: 20240928185237841
+tags: 
+title: Sn:WikitextExtForce
+type: text/vnd.tiddlywiki
+
+attachments/my_image.png
+
+That didn't work. How about [[attachments/my_image.png]]?
+
+Nope! Here's the right way: [ext[attachments/my_image.png]]
+
+(Note: this last link returns a 404 error, but it's the right syntax and would work if we had actually attached an image called `my_image.png` to this wiki.)

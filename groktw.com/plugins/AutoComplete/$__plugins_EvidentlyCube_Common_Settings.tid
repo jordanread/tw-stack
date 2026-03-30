@@ -1,0 +1,14 @@
+caption: Evidently Cube
+tags: $:/tags/ControlPanel
+title: $:/plugins/EvidentlyCube/Common/Settings
+
+\whitespace trim
+! Evidently Cube plugins Settings
+
+Below are settings for all Evidently Cube plugins.
+
+<$macrocall
+	$name="tabs"
+	tabsList="[all[shadows+tiddlers]tag[$:/tags/EvidentlyCube/SettingsTab]!is[draft]sort[]]"
+	default={{{ [all[shadows+tiddlers]tag[$:/tags/EvidentlyCube/SettingsTab]!is[draft]sort[]limit[1]] }}}/>
+
